@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada | Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar (código idêntico ao do dashboard) -->
+        <div class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-10" id="sidebar">
+            <!-- ... conteúdo igual ao do dashboard ... -->
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation (código idêntico ao do dashboard) -->
+            <header class="bg-white shadow-sm">
+                <!-- ... conteúdo igual ao do dashboard ... -->
+            </header>
+            
+            <!-- Página de Erro 404 Personalizada para Gráficos -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+                <div class="flex items-center justify-center h-full">
+                    <div class="text-center p-6 max-w-md">
+                        <div class="inline-block bg-red-100 p-4 rounded-full mb-4">
+                            <i class="fas fa-chart-pie text-red-500 text-4xl"></i>
+                        </div>
+                        <div class="text-6xl font-bold text-gray-400 mb-4">404</div>
+                        <h1 class="text-2xl font-semibold text-gray-700 mb-2">Gráficos Indisponíveis</h1>
+                        <p class="text-gray-500 mb-6">O módulo de gráficos que você está tentando acessar está temporariamente fora do ar para manutenção.</p>
+                        <div class="space-y-3">
+                            <a href="/src/pages/dashboard.html" class="block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-200">
+                                <i class="fas fa-tachometer-alt mr-2"></i> Voltar ao Dashboard
+                            </a>
+                            <a href="#" class="block border border-gray-300 hover:bg-gray-50 font-medium py-2 px-4 rounded transition duration-200">
+                                <i class="fas fa-envelope mr-2"></i> Reportar Problema
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Mesmo JavaScript do dashboard -->
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        });
+
+        // ... resto do código JavaScript igual ao dashboard ...
+    </script>
+</body>
+</html>
