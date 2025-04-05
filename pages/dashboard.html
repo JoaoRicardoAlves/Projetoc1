@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-10" id="sidebar">
+            <div class="text-white flex items-center space-x-2 px-4">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="text-xl font-semibold">Admin System</span>
+            </div>
+            
+            <nav>
+                <a href="/pages/dashboard.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 bg-gray-700">
+                    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                </a>
+                <a href="/pages/graphics.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-chart-area mr-2"></i> Gráficos
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-table mr-2"></i> Tabelas
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-user mr-2"></i> Perfil
+                </a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-cog mr-2"></i> Configurações
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm">
+                <div class="flex justify-between items-center py-4 px-6">
+                    <div class="flex items-center">
+                        <button class="md:hidden text-gray-500 focus:outline-none" id="menuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <span class="ml-4 text-gray-700 hidden md:block">Bem-vindo, Admin</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button class="text-gray-500 focus:outline-none relative" id="notificationsBtn">
+                                <i class="fas fa-bell"></i>
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                            </button>
+                            <div class="hidden absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-20" id="notificationsDropdown">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nova mensagem recebida</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Atualização do sistema</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Novo usuário cadastrado</a>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <button class="text-gray-500 focus:outline-none relative" id="messagesBtn">
+                                <i class="fas fa-envelope"></i>
+                                <span class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">5</span>
+                            </button>
+                            <div class="hidden absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-20" id="messagesDropdown">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">João: Preciso de ajuda</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Maria: Relatório enviado</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sistema: Backup concluído</a>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <button class="flex items-center space-x-2 focus:outline-none" id="userMenuBtn">
+                                <span class="text-gray-700 hidden md:inline">Admin</span>
+                                <div class="relative">
+                                    <img src="https://ui-avatars.com/api/?name=Admin&background=4f46e5&color=fff" alt="User" class="w-8 h-8 rounded-full">
+                                </div>
+                            </button>
+                            <div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20" id="userMenuDropdown">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Seu perfil</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Configurações</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t border-gray-100">Sair</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Page Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+                <div class="mb-6 flex justify-between items-center">
+                    <h1 class="text-2xl font-semibold text-gray-700">Visão Geral</h1>
+                    <div class="flex space-x-2">
+                        <button class="bg-white border border-gray-300 rounded-md px-3 py-1 text-sm text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-calendar-alt mr-1"></i> Últimos 30 dias
+                        </button>
+                        <button class="bg-white border border-gray-300 rounded-md px-3 py-1 text-sm text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-download mr-1"></i> Exportar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500">Total de Visitas</p>
+                                <p class="text-2xl font-semibold">12,345</p>
+                                <p class="text-sm mt-1"><span class="text-green-500">↑ 12%</span> em relação ao mês passado</p>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-eye text-blue-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500">Novos Usuários</p>
+                                <p class="text-2xl font-semibold">245</p>
+                                <p class="text-sm mt-1"><span class="text-green-500">↑ 8%</span> em relação ao mês passado</p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-users text-green-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500">Taxa de Conversão</p>
+                                <p class="text-2xl font-semibold">12%</p>
+                                <p class="text-sm mt-1"><span class="text-red-500">↓ 2%</span> em relação ao mês passado</p>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-percentage text-purple-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <!-- Main Chart -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-semibold">Desempenho Mensal</h2>
+                            <select class="bg-gray-100 border border-gray-300 text-gray-700 py-1 px-2 rounded focus:outline-none text-sm">
+                                <option>2023</option>
+                                <option>2022</option>
+                                <option>2021</option>
+                            </select>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="mainChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Pie Chart -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-lg font-semibold mb-4">Distribuição de Usuários</h2>
+                        <div class="h-64">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Atividade Recente</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-user-plus text-blue-500 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium">Novo usuário cadastrado</p>
+                                <p class="text-xs text-gray-500">Maria Silva - 2 horas atrás</p>
+                            </div>
+                            <span class="text-xs text-gray-500">10:45 AM</span>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-file-upload text-green-500 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium">Novo arquivo enviado</p>
+                                <p class="text-xs text-gray-500">Relatório mensal.pdf</p>
+                            </div>
+                            <span class="text-xs text-gray-500">Ontem, 3:30 PM</span>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-server text-purple-500 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium">Backup do sistema concluído</p>
+                                <p class="text-xs text-gray-500">Tamanho: 2.4 GB</p>
+                            </div>
+                            <span class="text-xs text-gray-500">Ontem, 1:00 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        });
+
+        // Toggle dropdowns
+        function setupDropdown(buttonId, dropdownId) {
+            const button = document.getElementById(buttonId);
+            const dropdown = document.getElementById(dropdownId);
+            
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('hidden');
+            });
+            
+            // Close when clicking outside
+            document.addEventListener('click', function() {
+                dropdown.classList.add('hidden');
+            });
+        }
+        
+        setupDropdown('notificationsBtn', 'notificationsDropdown');
+        setupDropdown('messagesBtn', 'messagesDropdown');
+        setupDropdown('userMenuBtn', 'userMenuDropdown');
+
+        // Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main Chart
+            const mainCtx = document.getElementById('mainChart').getContext('2d');
+            const mainChart = new Chart(mainCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    datasets: [{
+                        label: 'Visitas',
+                        data: [6500, 5900, 8000, 8100, 5600, 5500, 4000, 6000, 7000, 9000, 8500, 9500],
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }, {
+                        label: 'Usuários',
+                        data: [120, 190, 170, 200, 150, 140, 160, 185, 210, 230, 220, 245],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+            
+            // Pie Chart
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            const pieChart = new Chart(pieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Desktop', 'Mobile', 'Tablet'],
+                    datasets: [{
+                        data: [60, 30, 10],
+                        backgroundColor: [
+                            '#4f46e5',
+                            '#10b981',
+                            '#f59e0b'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
